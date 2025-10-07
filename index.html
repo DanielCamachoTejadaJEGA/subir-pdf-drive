@@ -31,12 +31,13 @@
           }),
         })
         .then(txt => document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente!")
-        .catch(() => document.getElementById("msg").innerText = "Archivo probablemente subido, verifica con tu docente!");
+        .catch(err => document.getElementById("msg").innerText = "Archivo probablemente subido, verifica con tu docente!"
       };
       reader.readAsDataURL(file);
     }
   </script>
 </body>
 </html>
+
 
 
