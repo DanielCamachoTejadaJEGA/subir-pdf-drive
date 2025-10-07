@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Subir CV</title>
+</head>
+<body>
+  <h2>Subir CV en PDF a Google Drive</h2>
+  <input type="file" id="pdfFile" accept="application/pdf">
+  <button onclick="uploadFile()">Subir</button>
+
+  <p id="msg"></p>
+
+  <script>
+    function uploadFile() {
+      const file = document.getElementById("pdfFile").files[0];
+      if (!file) {
+        alert("Selecciona un archivo PDF primero");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = e.target.result.split(',')[1];
+        fetch("https://script.google.com/macros/s/AKfycbw8Hi8W2ZGv4zzDIAWKnUFt3cDdGVCii50Kcm0aTdXYiOqrVJbY56KgoZCUkgl9yH0wCg/exec", {
+          method: "POST",
+          body: JSON.stringify({
+            filename: file.name,
+            mimeType: file.type,
+            data: data
+          }),
+        })
+        .then(res => res.text())
+        .then(txt => document.getElementById("msg").innerText = txt)
+        .catch(err => alert("Error: " + err));
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
