@@ -15,7 +15,7 @@
     function uploadFile() {
       const file = document.getElementById("pdfFile").files[0];
       if (!file) {
-        alert("Selecciona un archivo PDF primero");
+        document.getElementById("msg").innerText = "Por favor selecciona un archivo PDF primero.";
         return;
       }
 
@@ -30,15 +30,16 @@
             data: data
           }),
         })
-        .then(txt => document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente!")
-        .catch(err => document.getElementById("msg").innerText = "Archivo probablemente subido, verifica con tu docente!"
-      });
+        .then(() => {
+          document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente.";
+        })
+        .catch((err) => {
+          document.getElementById("msg").innerText = "No se pudo confirmar la subida (restricción CORS). Verifica en tu Drive.";
+          console.error(err);
+        });
+      };
       reader.readAsDataURL(file);
     }
   </script>
 </body>
 </html>
-
-
-
-
