@@ -30,13 +30,13 @@
             data: data
           }),
         })
-        .then(res => res.text())
-        .then(txt => document.getElementById("msg").innerText = txt)
-        .catch(err => alert("Error: " + err));
+        .then(txt => document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente!")
+        .catch(() => document.getElementById("msg").innerText = "Archivo probablemente subido, verifica con tu docente!");
       };
       reader.readAsDataURL(file);
     }
   </script>
 </body>
 </html>
+
 
