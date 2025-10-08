@@ -10,8 +10,6 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
             justify-content: center;
             align-items: center;
             background-color: #f5f5f5;
@@ -48,7 +46,7 @@
         }
 
         /* Ocultar el contenido hasta que termine de cargar */
-        #content {
+        #msg {
             display: none;
         }
     </style>
@@ -102,10 +100,19 @@
             // Simula una tarea que tarda 3 segundos en completarse
             setTimeout(function() {
                 // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('content').style.display = 'none';
+            }, 3000); // 3 segundos de espera
+            ready();
+        };
+    function ready() {
+                // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
-            }, 60000); // 60 segundos de espera
+            };
+            
         };
   </script>
 </body>
 </html>
+
