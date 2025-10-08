@@ -3,6 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <title>Subir CV</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        /* Estilo para el contenedor de carga */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Estilos del spinner */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animación de rotación del spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Ocultar el contenido hasta que termine de cargar */
+        #content {
+            display: none;
+        }
+    </style>
 </head>
 <body>
   <h2>Subir CV en PDF a Google Drive</h2>
@@ -10,6 +59,18 @@
   <button onclick="uploadFile()">Subir</button>
 
   <p id="msg"></p>
+
+  <!-- Aviso de carga -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Estamos procesando...</p>
+    </div>
+
+    <!-- Contenido de la página -->
+    <div id="content">
+        <h1>Contenido de la página cargado</h1>
+        <p>Aquí va el contenido principal de tu página.</p>
+    </div>
 
   <script>
     function uploadFile() {
@@ -40,7 +101,16 @@
       };
       reader.readAsDataURL(file);
     }
+    window.onload = function() {
+            // Simula una tarea que tarda 3 segundos en completarse
+            setTimeout(function() {
+                // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 3000); // 3 segundos de espera
+        };
   </script>
 </body>
 </html>
+
 
