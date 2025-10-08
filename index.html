@@ -34,7 +34,7 @@
           document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente.";
         })
         .catch((err) => {
-          document.getElementById("msg").innerText = "No se pudo confirmar la subida (restricción CORS). Verifica en tu Drive.";
+          document.getElementById("msg").innerText = "Probablemente el archivo fue cargado. Verifica con tu docente.";
           console.error(err);
         });
       };
@@ -43,3 +43,4 @@
   </script>
 </body>
 </html>
+
