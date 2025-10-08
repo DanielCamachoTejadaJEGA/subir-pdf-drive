@@ -3,53 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Subir CV</title>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            justify-content: center;
-            align-items: center;
-            background-color: #f5f5f5;
-        }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* Estilo para el contenedor de carga */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: none; /* 🔴 Ocultar inicialmente */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      flex-direction: column;
+    }
 
-        /* Estilos del spinner */
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
 
-        /* Animación de rotación del spinner */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        /* Ocultar el contenido hasta que termine de cargar */
-        #msg {
-            display: none;
-        }
-    </style>
+    #msg {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <h2>Subir CV en PDF a Google Drive</h2>
@@ -58,24 +52,30 @@
 
   <p id="msg"></p>
 
-  <!-- Aviso de carga -->
-    <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>Estamos procesando...</p>
-    </div>
+  <!-- Spinner oculto al inicio -->
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Estamos procesando...</p>
+  </div>
 
   <script>
     function uploadFile() {
       const file = document.getElementById("pdfFile").files[0];
       if (!file) {
+        document.getElementById("msg").style.display = "block";
         document.getElementById("msg").innerText = "Por favor selecciona un archivo PDF primero.";
         return;
       }
 
       const reader = new FileReader();
+
       reader.onload = function(e) {
         const data = e.target.result.split(',')[1];
-        loading();
+        
+        // Mostrar el spinner
+        document.getElementById('loading').style.display = 'flex';
+        document.getElementById("msg").style.display = "none";
+
         fetch("https://script.google.com/macros/s/AKfycbw8Hi8W2ZGv4zzDIAWKnUFt3cDdGVCii50Kcm0aTdXYiOqrVJbY56KgoZCUkgl9yH0wCg/exec", {
           method: "POST",
           body: JSON.stringify({
@@ -83,35 +83,22 @@
             mimeType: file.type,
             data: data
           }),
-        }
-             )
+        })
         .then(() => {
+          document.getElementById("msg").style.display = "block";
           document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente.";
+          document.getElementById('loading').style.display = 'none';
         })
         .catch((err) => {
-          
+          document.getElementById("msg").style.display = "block";
           document.getElementById("msg").innerText = "Probablemente el archivo fue cargado. Verifica con tu docente.";
           console.error(err);
+          document.getElementById('loading').style.display = 'none';
         });
       };
+
       reader.readAsDataURL(file);
     }
-    function loading() {
-            // Simula una tarea que tarda 3 segundos en completarse
-            setTimeout(function() {
-                // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
-                document.getElementById('loading').style.display = 'block';
-                document.getElementById('content').style.display = 'none';
-            }, 3000); // 3 segundos de espera
-            ready();
-        };
-    function ready() {
-                // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            };
-            
-        };
   </script>
 </body>
 </html>
