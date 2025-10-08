@@ -12,6 +12,31 @@
       padding: 0;
     }
 
+    /* Estilos del encabezado */
+    .encabezado {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 4px solid #3498db;
+    }
+
+    .encabezado h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .encabezado h3 {
+      margin: 5px 0;
+      font-weight: normal;
+    }
+
+    .encabezado p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
     .loading {
       position: fixed;
       top: 0;
@@ -46,6 +71,13 @@
   </style>
 </head>
 <body>
+  <!-- Encabezado institucional -->
+  <div id="encabezado" class="encabezado">
+    <h1>I.E. Jorge Eliécer Gaitán Ayala</h1>
+    <h3>Tecnología, Informática y Emprendimiento</h3>
+    <p><strong>Docente:</strong> Daniel Camacho Tejada</p>
+  </div>
+  
   <h2>Subir CV en PDF a Google Drive</h2>
   <input type="file" id="pdfFile" accept="application/pdf">
   <button onclick="uploadFile()">Subir</button>
@@ -102,4 +134,5 @@
   </script>
 </body>
 </html>
+
 
