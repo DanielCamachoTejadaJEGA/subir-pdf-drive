@@ -92,6 +92,7 @@
           }),
         })
         .then(() => {
+          loading();
           document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente.";
         })
         .catch((err) => {
@@ -101,16 +102,17 @@
       };
       reader.readAsDataURL(file);
     }
-    window.onload = function() {
+    function loading() {
             // Simula una tarea que tarda 3 segundos en completarse
             setTimeout(function() {
                 // Cuando la tarea termina, ocultamos el spinner y mostramos el contenido
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
-            }, 3000); // 3 segundos de espera
+            }, 60000); // 60 segundos de espera
         };
   </script>
 </body>
 </html>
+
 
 
