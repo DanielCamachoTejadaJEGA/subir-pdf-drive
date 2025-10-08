@@ -66,12 +66,6 @@
         <p>Estamos procesando...</p>
     </div>
 
-    <!-- Contenido de la página -->
-    <div id="content">
-        <h1>Contenido de la página cargado</h1>
-        <p>Aquí va el contenido principal de tu página.</p>
-    </div>
-
   <script>
     function uploadFile() {
       const file = document.getElementById("pdfFile").files[0];
@@ -83,6 +77,7 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         const data = e.target.result.split(',')[1];
+        loading();
         fetch("https://script.google.com/macros/s/AKfycbw8Hi8W2ZGv4zzDIAWKnUFt3cDdGVCii50Kcm0aTdXYiOqrVJbY56KgoZCUkgl9yH0wCg/exec", {
           method: "POST",
           body: JSON.stringify({
@@ -90,12 +85,13 @@
             mimeType: file.type,
             data: data
           }),
-        })
+        }
+             )
         .then(() => {
-          loading();
           document.getElementById("msg").innerText = "Archivo enviado, verifica con tu docente.";
         })
         .catch((err) => {
+          
           document.getElementById("msg").innerText = "Probablemente el archivo fue cargado. Verifica con tu docente.";
           console.error(err);
         });
@@ -113,6 +109,3 @@
   </script>
 </body>
 </html>
-
-
-
